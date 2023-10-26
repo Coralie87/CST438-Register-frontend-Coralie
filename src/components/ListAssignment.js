@@ -28,6 +28,28 @@ function ListAssignment(props) {
      }) 
     .catch(err => console.error(err)); 
   }
+
+  const  addAssignment = (assignment_id) => {
+    setMessage('');
+    console.log("start addAssignment"); 
+    fetch(`${SERVER_URL}/assignment/course/${assignment_id}`,
+    { 
+        method: 'POST', 
+    })
+    .then(res => {
+        if (res.ok) {
+        console.log("addAssignment ok");
+        setMessage("Assignment added.");
+        fetchAssignments();
+        } else {
+        console.log('error addAssignment ' + res.status);
+        setMessage("Error. "+res.status);
+        }})
+    .catch(err => {
+        console.error("exception addAssignment "+ err);
+        setMessage("Exception. "+err);
+    })
+}
   
   const deleteAssignment = (event) => {
     const row_id = event.target.parentNode.parentNode.rowIndex - 1;
@@ -48,6 +70,7 @@ function ListAssignment(props) {
    } )
   .catch((err) =>  { setMessage('Error. '+err) } );
   }
+
   
     const headers = ['Assignment Name', 'Course Title', 'Due Date', ' ', ' ', ' '];
     
@@ -73,6 +96,7 @@ function ListAssignment(props) {
                       </td>
                       <td><EditAssignment assignment={assignments[idx]} onClose={fetchAssignments} /></td>
                       <td><button type="button" margin="auto" onClick={deleteAssignment}>Delete</button></td>
+
                     </tr>
                   ))}
                 </tbody>

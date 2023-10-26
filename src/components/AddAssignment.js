@@ -1,6 +1,8 @@
 AddAssignment.js
 import React, { useState } from 'react';
+
 import {SERVER_URL} from '../constants'
+
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -9,6 +11,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 
+// properties addCourse is required, function called when Add clicked.
 function AddAssignment(props) { 
 
   const [open, setOpen] = useState(false);
@@ -46,10 +49,12 @@ function AddAssignment(props) {
       }
    } )
   .catch((err) =>  { setMessage('Error. '+err) } );
+
   }
 
   return (
       <div>
+
         <button type="button" margin="auto" onClick={handleOpen}>Add Assignment</button>
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>New Assignment</DialogTitle>
@@ -62,10 +67,16 @@ function AddAssignment(props) {
             <DialogActions>
               <Button color="secondary" onClick={handleClose}>Close</Button>
               <Button id="add" color="primary" onClick={addAssignment}>Add</Button>
+
             </DialogActions>
           </Dialog>      
       </div>
   ); 
+}
+
+// required property:  addCourse is a function to call to perform the Add action
+AddAssignment.propTypes = {
+  addAssignment : PropTypes.func.isRequired
 }
 
 export default AddAssignment;

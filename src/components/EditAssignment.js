@@ -8,8 +8,13 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import {SERVER_URL} from '../constants';
 
+function EditAssignment(props) {
+  const [editedData, setEditedData] = useState({}); // State for edited assignment data
 
-function EditAssignment(props) { 
+  const handleEditDataChange = (event) => {
+    const { name, value } = event.target;
+    setEditedData({ ...editedData, [name]: value });
+  };
 
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -65,6 +70,5 @@ function EditAssignment(props) {
           </Dialog>      
       </div>
   ); 
-}
 
-export default EditAssignment;
+}
